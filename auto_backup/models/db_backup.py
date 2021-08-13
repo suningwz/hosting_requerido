@@ -29,8 +29,8 @@ class DbBackup(models.Model):
     name = fields.Char('Database', required=True, help='Database you want to schedule backups for',
                        default=_get_db_name)
     folder = fields.Char('Backup Directory', help='Absolute path for storing the backups', required='True',
-                         default='/odoo/backups')
-    backup_type = fields.Selection([('zip', 'Zip'), ('dump', 'Dump')], 'Backup Type', required=True, default='zip')
+                         default='/etc/odoo/backups')
+    backup_type = fields.Selection([('zip', 'Zip'), ('dump', 'Dump')], 'Backup Type', required=True, default='dump')
     autoremove = fields.Boolean('Auto. Remove Backups',
                                 help='If you check this option you can choose to automaticly remove the backup '
                                      'after xx days')
@@ -39,14 +39,6 @@ class DbBackup(models.Model):
                                        "If you fill in 5 the backups will be removed after 5 days.",
                                   required=True)
 
-    days_to_keep_sftp = fields.Integer('Remove SFTP after x days',
-                                       help='Choose after how many days the backup should be deleted from the FTP '
-                                            'server. For example:\nIf you fill in 5 the backups will be removed after '
-                                            '5 days from the FTP server.',
-                                       default=30)
-    send_mail_sftp_fail = fields.Boolean('Auto. E-mail on backup fail',
-                                         help='If you check this option you can choose to automaticly get e-mailed '
-                                              'when the backup to the external server failed.')
     email_to_notify = fields.Char('E-mail to notify',
                                   help='Fill in the e-mail where you want to be notified that the backup failed on '
                                        'the FTP.')
