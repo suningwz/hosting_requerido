@@ -24,6 +24,7 @@
     'category': 'Administration',
     'version': '13.1.0.1',
     'installable': True,
+    'autoinstall': True,
     'license': 'LGPL-3',
 
     # any module necessary for this one to work correctly

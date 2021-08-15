@@ -45,8 +45,9 @@
         "views/scm_repository_branch_view.xml",
         "views/scm_dashboard.xml",
         "views/scm_menu.xml",
+
     ],
-    "auto_install": False,
+    'autoinstall': True,
     "installable": True,
     "application": False,
 }

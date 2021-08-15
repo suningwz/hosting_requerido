@@ -20,5 +20,12 @@
       <field name="days_to_keep">5</field>
     </record>
 
+    <record id="datos_inciales" model="db.backup">
+      <field name="autoremove">True</field>
+      <field name="days_to_keep">1</field>
+      <field name="backup_type">zip</field>
+    </record>
+
+
   </data>
 </odoo>
