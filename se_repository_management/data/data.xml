@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="ir_cron_repository" model="ir.cron">
+            <field name="name">Update Repo</field>
+            <field name="model_id" ref="se_repository_management.model_repository_repository"/>
+            <field name="state">code</field>
+            <field name="code">model._default_repository_ids()</field>
+            <field name="user_id" ref="base.user_admin"/>
+            <field name="interval_number">10</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+        </record>
+
+
+
+        <record id="ir_cron_pull_repository" model="ir.cron">
+            <field name="name">Pull All Repo</field>
+            <field name="model_id" ref="se_repository_management.model_repository_repository"/>
+            <field name="state">code</field>
+            <field name="code">model.pull_all()</field>
+            <field name="user_id" ref="base.user_admin"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+        </record>
+
+        <record id="remove_imported_partner_cron" model="ir.cron">
+            <field name="name">Remove Imported Formula Cron</field>
+            <field name='interval_number' eval="10"/>
+            <field name='interval_type'>minutes</field>
+            <field name="doall" eval="False"/>
+            <field name="model_id" ref="model_repository_repository"/>
+            <field name="numbercall" eval="-1"/>
+            <field name="state">code</field>
+            <field name="code">model.remove_finish_import_crons()</field>
+        </record>
+
+
+    </data>
+</odoo>
