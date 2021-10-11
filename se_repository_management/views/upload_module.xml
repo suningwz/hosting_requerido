@@ -1,0 +1,31 @@
+<odoo>
+    <data>
+        <record id="upload_module_form" model="ir.ui.view">
+            <field name="name">Upload Module Form</field>
+            <field name="model">upload.module</field>
+            <field name="arch" type="xml">
+                <form string="Upload Module">
+                    <sheet>
+                        <group>
+                            <field name="addons_paths"/>
+                            <field name="data_file" filename="datas_fname"/>
+                            <field name="datas_fname" invisible="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="upload_module_tree" model="ir.ui.view">
+            <field name="name">Upload Module Tree</field>
+            <field name="model">upload.module</field>
+            <field name="arch" type="xml">
+                <tree string="">
+                    <field name="addons_paths"/>
+                      <field name="datas_fname" />
+                </tree>
+            </field>
+        </record>
+    </data>
+</odoo>

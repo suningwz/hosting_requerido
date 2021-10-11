@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="panel_tool_form_view" model="ir.ui.view">
+            <field name="name">panel.tool.form</field>
+            <field name="model">panel.tool</field>
+            <field name="arch" type="xml">
+                <form string="Panel de Control">
+                    <sheet>
+                        <div class="oe_button_box" name="buttons">
+                            <button name="reboot_server_odoo" type="object" icon="fa-refresh" string="Reboot Server"
+                                    class="oe_stat_button" help="Reboot Server de Odoo"
+
+                                   />
+
+
+                            <button name="update_modules" type="object" icon="fa-refresh" string="Actualizar Modulos"
+                                    class="oe_stat_button" help="Actualizar Modulos"
+                                    confirm="Esta seguro que desea actualizar los modulos?"/>
+                        </div>
+                        <group>
+                            <group colspan="6">
+                                <field name="repository_ids">
+                                    <tree>
+                                        <field name="module_count" invisible="1"/>
+                                        <field name="state" invisible="1"/>
+                                        <field name="source" widget="url"/>
+                                        <field name="rev_id" invisible="1"/>
+                                        <button name="clone" type="object" icon="fa-cloud-download"
+                                                string="Clone Repository"
+                                                attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                                        <button name="action_open_modules" type="object"
+                                                icon="fa-external-link"
+                                                string="Open Repository Modules"
+                                                attrs="{'invisible': ['|',('module_count', '=', 0), ('state', '=', 'draft')]}"/>
+                                        <button name="action_enabled" type="object" icon="fa-toggle-off"
+                                                string="Enable Repository"
+                                                attrs="{'invisible': [('state', 'in', ['enabled','draft'])]}"/>
+                                        <button name="action_disable" type="object" icon="fa-toggle-on"
+                                                string="Disable Repository"
+                                                attrs="{'invisible': [('state', 'in', ['disabled','draft','cloned'])]}"/>
+                                        <button name="action_update" type="object" icon="fa-refresh"
+                                                string="Update Repository"
+                                                attrs="{'invisible': [('state', 'in', ['draft','cloned'])]}"/>
+                                        <button name="action_remove" type="object" icon="fa-trash"
+                                                string="Remove Repository"
+                                                attrs="{'invisible': [('state', '=', 'draft')]}"/>
+                                    </tree>
+                                </field>
+                            </group>
+                            <group colspan="6">
+                                <field name="module_upload">
+                                    <tree string="Modulos subidos">
+                                        <field name="addons_paths"/>
+                                        <field name="datas_fname"/>
+                                    </tree>
+                                </field>
+                            </group>
+
+
+                        </group>
+                        <notebook>
+                            <page name="sql_instruction" string="SQL">
+                                <group colspan="6">
+                                    <button
+                                            name="capture_sql_field"
+                                            confirm="Are you sure you want to run this query? 'Warning: executed queries may modify your database."
+                                            string="Run Query" type="object"/>
+                                    <field name="sql_instruction"/>
+                                    <field name="msg_sql"/>
+                                </group>
+                                <separator string="Result" style="text-align:center"/>
+                                <field name="html_field"/>
+                            </page>
+                            <page name="sql_instruction" string="CMD">
+                                <group colspan="6">
+                                    <button
+                                            name="execute_on_shell"
+                                            string="Ejecutar Comandos" type="object"/>
+                                    <field name="command_exe" />
+                                </group>
+                                <separator string="Result" style="text-align:center"/>
+                                <field name="msg_cmd"/>
+                            </page>
+                            <page name="log" string="Log">
+                                <group colspan="6">
+                                    <field name="odoo_log" />
+                                </group>
+
+                            </page>
+                        </notebook>
+
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="panel_tool_act_window" model="ir.actions.act_window">
+            <field name="name">Panel de Control</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">panel.tool</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem name="Panle de Control" id="panel_tool_menu" action="panel_tool_act_window"/>
+
+    </data>
+</odoo>

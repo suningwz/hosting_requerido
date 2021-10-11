@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_repository_repository,repository_repository,model_repository_repository,base.group_system,1,1,1,1
+access_panel_tool,panel_tool,model_panel_tool,base.group_system,1,1,1,1
+accces_upload_module_access_right_user,upload_module_model_brand_access_right,model_upload_module,base.group_system,1,1,1,1

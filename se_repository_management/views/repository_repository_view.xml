@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="repository_repository_view_tree" model="ir.ui.view">
+            <field name="name">repository.repository.tree</field>
+            <field name="model">repository.repository</field>
+            <field name="arch" type="xml">
+                <tree decoration-warning="state=='enabled'" decoration-muted="state!='enabled'">
+                    <field name="dirty" invisible="1"/>
+                    <field name="state" invisible="1"/>
+                    <field name="source" widget="url"/>
+                    <field name="branch"/>
+                    <field name="rev_id" invisible="1"/>
+                    <field name="rev_date"/>
+                    <field name="state"/>
+                    <field name="module_count" readonly="1"/>
+                    <field name="path"/>
+                    <button name="clone" type="object" icon="fa-cloud-download" string="Clone Repository"
+                            attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                    <button name="action_open_modules" type="object" icon="fa-external-link"
+                            string="Open Repository Modules"
+                            attrs="{'invisible': ['|',('module_count', '=', 0), ('state', '=', 'draft')]}"/>
+                    <button name="action_enabled" type="object" icon="fa-toggle-off" string="Enable Repository"
+                            attrs="{'invisible': [('state', 'in', ['enabled','draft'])]}"/>
+                    <button name="action_disable" type="object" icon="fa-toggle-on" string="Disable Repository"
+                            attrs="{'invisible': [('state', 'in', ['disabled','draft','cloned'])]}"/>
+                    <button name="action_update" type="object" icon="fa-refresh" string="Update Repository"
+                            attrs="{'invisible': ['|',('dirty', '=', True), ('state', 'in', ['draft','cloned'])]}"/>
+                    <button name="action_remove" type="object" icon="fa-trash" string="Remove Repository"
+                            attrs="{'invisible': ['|', ('dirty', '=', True), ('state', '=', 'draft')]}"/>
+                </tree>
+            </field>
+        </record>
+        <record id="repository_repository_view_form" model="ir.ui.view">
+            <field name="name">repository.repository.form</field>
+            <field name="model">repository.repository</field>
+            <field name="arch" type="xml">
+                <form string="Repository">
+                    <header>
+
+
+                          <field name="state" widget="statusbar" statusbar_visible="draft,cloned,enabled,disabled"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="buttons">
+                            <button name="clone" type="object" icon="fa-cloud-download" string="Clone Repository"
+                                    attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                            <button name="action_enabled" type="object" icon="fa-toggle-off" string="Enable Repository"
+                                    attrs="{'invisible': [('state', 'in', ['enabled','draft'])]}"/>
+                            <button name="action_disable" type="object" icon="fa-toggle-on" string="Disable Repository"
+                                    attrs="{'invisible': [('state', 'in', ['disabled','draft','cloned'])]}"/>
+                            <button name="action_update" type="object" icon="fa-refresh" string="Update Repository"
+                                    attrs="{'invisible': [('state', 'in', ['draft','cloned'])]}"/>
+                            <button name="action_remove" type="object" icon="fa-trash" string="Remove Repository"
+                                    attrs="{'invisible': [('state', '=', 'draft')]}"/>
+                            <button name="action_open_modules" type="object" icon="fa-external-link"
+                                    string="Open Repository Modules"
+                                    attrs="{'invisible': ['|',('module_count', '=', 0), ('state', '=', 'draft')]}"/>
+
+                            <button name="restart" type="object" icon="fa-cloud-download" string="Restart "
+                                    />
+                        </div>
+                        <group>
+                            <field name="dirty" invisible="1"/>
+                            <field name="state" invisible="1"/>
+                            <field name="source" widget="url"/>
+                            <field name="branch"/>
+                            <field name="rev_id" invisible="1"/>
+                            <field name="rev_date"/>
+                            <field name="module_count" readonly="1"/>
+                            <field name="path"/>
+                            <field name="addons_paths"/>
+                            <field name="user"/>
+                            <field name="password" password="True" />
+                        </group>
+                        <notebook colspan="4">
+                            <page name="log" string="log">
+                                <field name="log"/>
+                            </page>
+                        </notebook>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="repository_repository_action" model="ir.actions.act_window">
+            <field name="name">repository.repository</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">repository.repository</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem id="repository_repository_menu" name="Repository" parent="base.menu_management"
+                  action="repository_repository_action" sequence=""/>
+    </data>
+</odoo>
