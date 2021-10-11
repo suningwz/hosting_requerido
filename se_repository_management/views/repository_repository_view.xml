@@ -91,6 +91,6 @@
             <field name="view_mode">tree,form</field>
         </record>
         <menuitem id="repository_repository_menu" name="Repository" parent="base.menu_management"
-                  action="repository_repository_action" sequence=""/>
+                  action="repository_repository_action" sequence="5"/>
     </data>
 </odoo>
